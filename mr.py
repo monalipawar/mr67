@@ -293,6 +293,70 @@ function buildLevels(){
       hearts: [{x:355,y:305,taken:false}],
       spawn:{x:30,y:400}, goal:{x:810,y:120,w:50,h:40}
     },
+    { type:'boss', bossType:'wraith', bossName:'Wailing Wraith', bossHp:100, bossColor:'#5eead4',
+      platforms: [{x:0,y:460,w:900,h:40},{x:250,y:320,w:100,h:20},{x:550,y:320,w:100,h:20}],
+      scrolls: [{x:430,y:400,taken:false}],
+      hearts: [{x:100,y:415,taken:false}],
+      spawn:{x:50,y:400}, goal:{x:800,y:415,w:50,h:40}
+    },
+    { type:'normal',
+      platforms: [
+        {x:0,y:460,w:900,h:40}, {x:130,y:400,w:80,h:20}, {x:270,y:340,w:80,h:20},
+        {x:420,y:400,w:80,h:20}, {x:570,y:330,w:80,h:20}, {x:710,y:260,w:80,h:20},
+        {x:200,y:190,w:100,h:20}, {x:600,y:150,w:120,h:20}
+      ],
+      enemies: [
+        {x:290,y:310,w:34,h:40,vx:2.1,range:[270,350],hp:4,type:'shadow'},
+        {x:590,y:300,w:34,h:40,vx:1.8,range:[570,650],hp:4,type:'shadow'},
+        {x:220,y:160,w:34,h:40,vx:1.6,range:[200,300],hp:4,type:'archer'},
+        {x:630,y:120,w:34,h:40,vx:1.6,range:[600,720],hp:4,type:'archer'}
+      ],
+      scrolls: [{x:250,y:155,taken:false},{x:640,y:115,taken:false},{x:730,y:225,taken:false}],
+      hearts: [{x:450,y:365,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:640,y:110,w:50,h:40}
+    },
+    { type:'boss', bossType:'kitsune', bossName:'Nine-Tail Kitsune', bossHp:110, bossColor:'#fb7185',
+      platforms: [{x:0,y:460,w:900,h:40},{x:100,y:360,w:120,h:20},{x:390,y:300,w:120,h:20},{x:680,y:360,w:120,h:20}],
+      scrolls: [{x:430,y:265,taken:false}],
+      hearts: [{x:840,y:415,taken:false}],
+      spawn:{x:50,y:400}, goal:{x:130,y:320,w:50,h:40}
+    },
+    { type:'normal',
+      platforms: [
+        {x:0,y:460,w:900,h:40}, {x:120,y:410,w:80,h:20}, {x:250,y:350,w:80,h:20},
+        {x:380,y:290,w:80,h:20}, {x:510,y:350,w:80,h:20}, {x:640,y:290,w:80,h:20},
+        {x:760,y:230,w:80,h:20}, {x:300,y:170,w:100,h:20}
+      ],
+      enemies: [
+        {x:270,y:320,w:34,h:40,vx:2.2,range:[250,320],hp:4,type:'shadow'},
+        {x:530,y:320,w:34,h:40,vx:2.0,range:[510,580],hp:4,type:'shadow'},
+        {x:660,y:260,w:34,h:40,vx:1.7,range:[640,710],hp:5,type:'archer'},
+        {x:320,y:140,w:34,h:40,vx:1.5,range:[300,390],hp:5,type:'archer'}
+      ],
+      scrolls: [{x:150,y:375,taken:false},{x:790,y:195,taken:false},{x:330,y:135,taken:false}],
+      hearts: [{x:410,y:255,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:780,y:190,w:50,h:40}
+    },
+    { type:'boss', bossType:'thunder', bossName:'Thunder Dragon', bossHp:125, bossColor:'#a78bfa',
+      platforms: [{x:0,y:460,w:900,h:40},{x:200,y:340,w:130,h:20},{x:570,y:340,w:130,h:20}],
+      scrolls: [{x:420,y:400,taken:false}],
+      hearts: [{x:80,y:415,taken:false}],
+      spawn:{x:50,y:400}, goal:{x:250,y:300,w:50,h:40}
+    },
+    { type:'normal',
+      platforms: [
+        {x:0,y:460,w:900,h:40}, {x:150,y:400,w:90,h:20}, {x:320,y:340,w:90,h:20},
+        {x:490,y:280,w:90,h:20}, {x:650,y:220,w:90,h:20}, {x:790,y:160,w:100,h:20}
+      ],
+      enemies: [
+        {x:340,y:310,w:34,h:40,vx:2.0,range:[320,410],hp:4,type:'shadow'},
+        {x:510,y:250,w:34,h:40,vx:1.6,range:[490,580],hp:4,type:'archer'},
+        {x:670,y:190,w:34,h:40,vx:1.9,range:[650,740],hp:4,type:'shadow'}
+      ],
+      scrolls: [{x:180,y:365,taken:false},{x:670,y:185,taken:false},{x:820,y:125,taken:false}],
+      hearts: [{x:355,y:305,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:810,y:120,w:50,h:40}
+    },
     { type:'boss', bossType:'emperor', bossName:'Dragon Emperor', bossHp:140, bossColor:'#ef233c',
       platforms: [{x:0,y:460,w:900,h:40},{x:180,y:360,w:120,h:20},{x:600,y:360,w:120,h:20}],
       scrolls: [{x:420,y:400,taken:false}],
@@ -436,6 +500,62 @@ function updateBoss(){
         projectiles.push({x:boss.x+35+(i-1)*20,y:boss.y+60,vx:(i-1)*1.5,vy:4,life:150,grav:false,fire:true});
       }
     }
+  }
+  else if(boss.type==='wraith'){
+    // erratic floaty movement, phases through with fast homing dash bursts
+    boss.floatT = (boss.floatT||0) + 0.05;
+    boss.x += Math.sin(boss.floatT*1.3)*3.2;
+    boss.y = 300 + Math.sin(boss.floatT*0.9)*70;
+    boss.x = Math.max(20, Math.min(W-90, boss.x));
+    boss.attackCd--;
+    if(boss.attackCd<=0 && !boss.dashing){
+      boss.attackCd = boss.phase===1?95:60;
+      boss.dashing = true; boss.dashTimer = 30;
+      boss.dashDir = Math.sign((player.x+17)-(boss.x+35)) || 1;
+      spawnParticles(boss.x+35,boss.y+40,'#5eead4',10,5);
+    }
+    if(boss.dashing){
+      boss.dashTimer--;
+      boss.x += boss.dashDir*8;
+      boss.x = Math.max(20, Math.min(W-90, boss.x));
+      if(boss.dashTimer<=0) boss.dashing=false;
+    }
+  }
+  else if(boss.type==='kitsune'){
+    // teleports and fires a ring of illusion projectiles from up to 2 positions
+    boss.teleportCd = (boss.teleportCd===undefined)?100:boss.teleportCd-1;
+    if(boss.teleportCd<=0){
+      boss.teleportCd = boss.phase===1?100:65;
+      boss.x = Math.max(20,Math.min(W-90, 60 + Math.random()*(W-160)));
+      boss.y = [300,240,300][Math.floor(Math.random()*3)];
+      spawnParticles(boss.x+35,boss.y+40,'#fb7185',14,6);
+      let n = boss.phase===1?5:7;
+      for(let i=0;i<n;i++){
+        let ang = (Math.PI*2*i)/n;
+        projectiles.push({x:boss.x+35,y:boss.y+40,vx:Math.cos(ang)*4,vy:Math.sin(ang)*4,life:110});
+      }
+    }
+  }
+  else if(boss.type==='thunder'){
+    // hovers and calls down telegraphed lightning strike columns
+    let dx = player.x - boss.x;
+    if(Math.abs(dx)>80) boss.x += Math.sign(dx)*1.1;
+    boss.y = 250 + Math.sin(Date.now()/450)*30;
+    boss.x = Math.max(20, Math.min(W-90, boss.x));
+    boss.strikes = boss.strikes || [];
+    boss.attackCd--;
+    if(boss.attackCd<=0){
+      boss.attackCd = boss.phase===1?100:65;
+      let sx = Math.max(20,Math.min(W-60, player.x - 20));
+      boss.strikes.push({x:sx, telegraph:35});
+    }
+    for(const s of boss.strikes){
+      s.telegraph--;
+      if(s.telegraph===0){
+        projectiles.push({x:s.x+15,y:60,vx:0,vy:14,life:40,strike:true});
+      }
+    }
+    boss.strikes = boss.strikes.filter(s=>s.telegraph>-5);
   }
   else if(boss.type==='emperor'){
     let dx = player.x - boss.x;
@@ -592,7 +712,7 @@ function update(){
     pr.y += pr.vy || 0;
     pr.life--;
     if(rectsOverlap({x:pr.x-4,y:pr.y-4,w:8,h:8}, player) && player.invuln<=0){
-      player.hp -= (pr.fire?6:7) * shieldFactor(); player.invuln=40; pr.life=0; camShake=8;
+      player.hp -= (pr.strike?14:(pr.fire?6:7)) * shieldFactor(); player.invuln=40; pr.life=0; camShake=8;
     }
   }
   projectiles = projectiles.filter(p=>p.life>0);
@@ -849,9 +969,20 @@ function draw(){
     ctx.fillStyle=grad;
     ctx.beginPath(); ctx.arc(f.x,f.y,10,0,7); ctx.fill();
   }
+  if(boss && boss.type==='thunder' && boss.strikes){
+    for(const s of boss.strikes){
+      if(s.telegraph>0){
+        ctx.save();
+        ctx.globalAlpha = 0.35 + 0.25*Math.sin(Date.now()/40);
+        ctx.fillStyle = '#a78bfa';
+        ctx.fillRect(s.x,0,30,H);
+        ctx.restore();
+      }
+    }
+  }
   for(const pr of projectiles){
-    ctx.fillStyle = pr.fire ? '#ff9d00' : (pr.ground ? '#c4c4c4' : '#ff4d6d');
-    ctx.beginPath(); ctx.arc(pr.x,pr.y,pr.ground?5:4,0,7); ctx.fill();
+    ctx.fillStyle = pr.strike ? '#e0e7ff' : pr.fire ? '#ff9d00' : (pr.ground ? '#c4c4c4' : '#ff4d6d');
+    ctx.beginPath(); ctx.arc(pr.x,pr.y,pr.strike?6:(pr.ground?5:4),0,7); ctx.fill();
   }
   for(const p of particles){
     ctx.globalAlpha = Math.max(0,p.life/40);
