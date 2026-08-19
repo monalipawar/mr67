@@ -448,13 +448,13 @@ function updateBoss(){
 
   // contact damage
   if(rectsOverlap(player,bx) && player.invuln<=0){
-    player.hp -= (boss.type==='golem'?14: boss.type==='emperor'?13:10);
+    player.hp -= (boss.type==='golem'?9: boss.type==='emperor'?9:7);
     player.invuln = 45; camShake = 10;
     spawnParticles(player.x+player.w/2,player.y+player.h/2,'#ff4d6d',8,4);
   }
   // player slash damage
   if(playerSlashHits(bx)){
-    let dmg = 0.6;
+    let dmg = 1.6;
     boss.hp -= dmg;
     spawnParticles(boss.x+35,boss.y+40,'#ff9d00',5,4);
   }
@@ -565,7 +565,7 @@ function update(){
         }
       }
     } else if(boss && boss.hp>0 && rectsOverlap({x:fb.x-8,y:fb.y-8,w:16,h:16},{x:boss.x,y:boss.y,w:boss.w,h:boss.h})){
-      boss.hp -= 2.5; fb.life=0;
+      boss.hp -= 4.5; fb.life=0;
       spawnParticles(boss.x+35,boss.y+40,'#ff6b00',10,5);
     }
   }
@@ -576,7 +576,7 @@ function update(){
     pr.y += pr.vy || 0;
     pr.life--;
     if(rectsOverlap({x:pr.x-4,y:pr.y-4,w:8,h:8}, player) && player.invuln<=0){
-      player.hp -= (pr.fire?9:10); player.invuln=40; pr.life=0; camShake=8;
+      player.hp -= (pr.fire?6:7); player.invuln=40; pr.life=0; camShake=8;
     }
   }
   projectiles = projectiles.filter(p=>p.life>0);
