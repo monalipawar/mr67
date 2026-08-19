@@ -459,12 +459,10 @@ function updateBoss(){
     spawnParticles(boss.x+35,boss.y+40,'#ff9d00',5,4);
   }
 
-  if(boss.hp<=0){
-    if(!level.bossDefeated){
-      level.bossDefeated = true;
-      bossesDefeated++;
-      spawnParticles(boss.x+35,boss.y+40,boss.color,30,8);
-    }
+  if(boss.hp<=0 && !level.bossDefeated){
+    level.bossDefeated = true;
+    bossesDefeated++;
+    spawnParticles(boss.x+35,boss.y+40,boss.color,30,8);
   }
 }
 
@@ -593,7 +591,8 @@ function update(){
 
   if(level.type==='boss'){
     updateBoss();
-    if(level.bossDefeated && rectsOverlap(player, level.goal)){
+    let defeated = boss && boss.hp<=0;
+    if(defeated && rectsOverlap(player, level.goal)){
       gameState='levelclear';
       let allScrolls = level.scrolls.every(s=>s.taken);
       let isFinal = levelIdx === levels.length-1;
@@ -776,7 +775,7 @@ function draw(){
     drawGoal(level.goal, true);
     for(const e of level.enemies) drawEnemy(e);
   } else {
-    drawGoal(level.goal, level.bossDefeated);
+    drawGoal(level.goal, boss && boss.hp<=0);
     drawBoss();
   }
 
