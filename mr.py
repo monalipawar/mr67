@@ -96,7 +96,7 @@ GAME_HTML = r"""
     <div id="controls">
       <b>← → / A D</b> Move &nbsp;•&nbsp; <b>SPACE / W</b> Jump (double-jump!) &nbsp;•&nbsp; <b>J</b> Sword Slash<br>
       <b>K</b> Fire Breath (uses Chi) &nbsp;•&nbsp; <b>SHIFT</b> Dash (brief invulnerability)<br>
-      <b>L</b> Hold to raise Shield (fully blocks damage while up, can't attack while shielding)
+      <b>L</b> Hold to raise Shield (fully blocks all damage while up)
     </div>
     <button class="gbtn" id="startBtn">Begin Journey</button>
   </div>
@@ -493,23 +493,23 @@ function update(){
   else if(keys['d']||keys['arrowright']){ player.vx = speed; player.facing=1; }
   else { player.vx *= 0.75; }
 
-  if((keys[' ']||keys['w']||keys['arrowup']) && player.jumps < player.maxJumps && !player._jumpHeld && !player.shielding){
+  if((keys[' ']||keys['w']||keys['arrowup']) && player.jumps < player.maxJumps && !player._jumpHeld){
     player.vy = -12.5; player.jumps++; player._jumpHeld = true;
     spawnParticles(player.x+player.w/2, player.y+player.h, '#a78bfa', 6, 3);
   }
   if(!(keys[' ']||keys['w']||keys['arrowup'])) player._jumpHeld = false;
 
-  if(keys['shift'] && player.dashCd<=0 && !player.shielding){
+  if(keys['shift'] && player.dashCd<=0){
     player.vx = 14*player.facing; player.dashCd = 45; player.invuln = 12;
     spawnParticles(player.x+player.w/2, player.y+player.h/2, '#06b6d4', 10, 5);
   }
   if(player.dashCd>0) player.dashCd--;
 
-  if(keys['j'] && player.slashCd<=0 && !player.shielding){ player.slashCd = 22; player.slashTimer = 10; }
+  if(keys['j'] && player.slashCd<=0){ player.slashCd = 22; player.slashTimer = 10; }
   if(player.slashCd>0) player.slashCd--;
   if(player.slashTimer>0) player.slashTimer--;
 
-  if(keys['k'] && player.breathCd<=0 && player.chi>=18 && !player.shielding){
+  if(keys['k'] && player.breathCd<=0 && player.chi>=18){
     player.breathCd = 8; player.chi -= 1.2; player.breathTimer = 14;
     fireballs.push({x:player.x+player.w/2+player.facing*20, y:player.y+18, vx:player.facing*9+player.vx*0.3, vy:(Math.random()-0.5)*1.5, life:40});
   }
