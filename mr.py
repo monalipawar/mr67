@@ -132,6 +132,7 @@ function buildLevels(){
         {x:750,y:350,w:34,h:40,vx:1.2,range:[700,840],hp:2,type:'shadow'}
       ],
       scrolls: [{x:190,y:335,taken:false},{x:600,y:215,taken:false}],
+      hearts: [{x:355,y:265,taken:false}],
       spawn:{x:30,y:400}, goal:{x:775,y:330,w:50,h:44}
     },
     { type:'normal',
@@ -146,6 +147,7 @@ function buildLevels(){
         {x:230,y:190,w:34,h:40,vx:1.3,range:[200,320],hp:3,type:'archer'}
       ],
       scrolls: [{x:250,y:185,taken:false},{x:540,y:125,taken:false},{x:460,y:245,taken:false}],
+      hearts: [{x:295,y:305,taken:false}],
       spawn:{x:30,y:400}, goal:{x:790,y:350,w:50,h:50}
     },
     { type:'normal',
@@ -158,11 +160,13 @@ function buildLevels(){
         {x:600,y:260,w:34,h:40,vx:1.4,range:[580,670],hp:3,type:'archer'}
       ],
       scrolls: [{x:160,y:355,taken:false},{x:450,y:315,taken:false},{x:750,y:195,taken:false}],
+      hearts: [{x:445,y:200,taken:false}],
       spawn:{x:30,y:400}, goal:{x:770,y:190,w:50,h:40}
     },
     { type:'boss', bossType:'guardian', bossName:'Temple Guardian', bossHp:55, bossColor:'#ff4d4d',
       platforms: [{x:0,y:460,w:900,h:40},{x:770,y:340,w:100,h:20}],
       scrolls: [{x:100,y:390,taken:false}],
+      hearts: [{x:450,y:415,taken:false}],
       spawn:{x:50,y:400}, goal:{x:795,y:300,w:50,h:40}
     },
     { type:'normal',
@@ -177,6 +181,7 @@ function buildLevels(){
         {x:720,y:230,w:34,h:40,vx:1.5,range:[700,790],hp:2,type:'shadow'}
       ],
       scrolls: [{x:130,y:365,taken:false},{x:440,y:165,taken:false}],
+      hearts: [{x:575,y:290,taken:false}],
       spawn:{x:30,y:400}, goal:{x:725,y:220,w:50,h:40}
     },
     { type:'normal',
@@ -191,11 +196,13 @@ function buildLevels(){
         {x:630,y:230,w:34,h:40,vx:1.7,range:[610,680],hp:3,type:'shadow'}
       ],
       scrolls: [{x:140,y:375,taken:false},{x:640,y:225,taken:false},{x:780,y:165,taken:false}],
+      hearts: [{x:255,y:325,taken:false}],
       spawn:{x:30,y:400}, goal:{x:800,y:160,w:50,h:40}
     },
     { type:'boss', bossType:'assassin', bossName:'Shadow Assassin', bossHp:65, bossColor:'#7c3aed',
       platforms: [{x:0,y:460,w:900,h:40},{x:150,y:340,w:140,h:20},{x:610,y:340,w:140,h:20}],
       scrolls: [{x:840,y:390,taken:false}],
+      hearts: [{x:210,y:305,taken:false}],
       spawn:{x:50,y:400}, goal:{x:635,y:300,w:50,h:40}
     },
     { type:'normal',
@@ -209,11 +216,13 @@ function buildLevels(){
         {x:100,y:200,w:34,h:40,vx:1.3,range:[80,180],hp:3,type:'archer'}
       ],
       scrolls: [{x:210,y:355,taken:false},{x:110,y:195,taken:false}],
+      hearts: [{x:585,y:235,taken:false}],
       spawn:{x:30,y:400}, goal:{x:725,y:180,w:50,h:40}
     },
     { type:'boss', bossType:'golem', bossName:'Stone Golem', bossHp:90, bossColor:'#9ca3af',
       platforms: [{x:0,y:460,w:900,h:40},{x:770,y:360,w:100,h:20}],
       scrolls: [{x:450,y:390,taken:false}],
+      hearts: [{x:200,y:415,taken:false}],
       spawn:{x:50,y:400}, goal:{x:795,y:320,w:50,h:40}
     },
     { type:'normal',
@@ -229,6 +238,7 @@ function buildLevels(){
         {x:700,y:140,w:34,h:40,vx:1.4,range:[680,760],hp:4,type:'archer'}
       ],
       scrolls: [{x:150,y:375,taken:false},{x:570,y:195,taken:false},{x:710,y:135,taken:false}],
+      hearts: [{x:265,y:325,taken:false}],
       spawn:{x:30,y:400}, goal:{x:700,y:130,w:50,h:40}
     },
     { type:'normal',
@@ -241,11 +251,13 @@ function buildLevels(){
         {x:630,y:300,w:34,h:40,vx:1.5,range:[610,700],hp:3,type:'archer'}
       ],
       scrolls: [{x:170,y:375,taken:false},{x:490,y:365,taken:false},{x:800,y:225,taken:false}],
+      hearts: [{x:615,y:300,taken:false}],
       spawn:{x:30,y:400}, goal:{x:790,y:220,w:50,h:40}
     },
     { type:'boss', bossType:'phoenix', bossName:'Phoenix Sentinel', bossHp:85, bossColor:'#ff9d00',
       platforms: [{x:0,y:460,w:900,h:40},{x:100,y:340,w:120,h:20},{x:680,y:340,w:120,h:20},{x:390,y:260,w:120,h:20}],
       scrolls: [{x:430,y:225,taken:false}],
+      hearts: [{x:105,y:305,taken:false}],
       spawn:{x:50,y:400}, goal:{x:715,y:300,w:50,h:40}
     },
     { type:'normal',
@@ -261,6 +273,7 @@ function buildLevels(){
         {x:580,y:130,w:34,h:40,vx:1.5,range:[550,670],hp:4,type:'archer'}
       ],
       scrolls: [{x:170,y:365,taken:false},{x:300,y:165,taken:false},{x:600,y:125,taken:false},{x:480,y:245,taken:false}],
+      hearts: [{x:775,y:365,taken:false}],
       spawn:{x:30,y:400}, goal:{x:580,y:120,w:50,h:40}
     },
     { type:'normal',
@@ -274,11 +287,13 @@ function buildLevels(){
         {x:670,y:190,w:34,h:40,vx:1.9,range:[650,740],hp:4,type:'shadow'}
       ],
       scrolls: [{x:180,y:365,taken:false},{x:670,y:185,taken:false},{x:820,y:125,taken:false}],
+      hearts: [{x:355,y:305,taken:false}],
       spawn:{x:30,y:400}, goal:{x:810,y:120,w:50,h:40}
     },
     { type:'boss', bossType:'emperor', bossName:'Dragon Emperor', bossHp:140, bossColor:'#ef233c',
       platforms: [{x:0,y:460,w:900,h:40},{x:180,y:360,w:120,h:20},{x:600,y:360,w:120,h:20}],
       scrolls: [{x:420,y:400,taken:false}],
+      hearts: [{x:210,y:325,taken:false}],
       spawn:{x:50,y:400}, goal:{x:415,y:320,w:50,h:40}
     }
   ];
@@ -586,6 +601,21 @@ function update(){
     }
   }
 
+  if(level.hearts){
+    for(const h of level.hearts){
+      if(!h.taken && rectsOverlap({x:h.x,y:h.y,w:22,h:20}, player)){
+        h.taken = true;
+        player.hp = Math.min(player.maxHp, player.hp + 30);
+        spawnParticles(h.x+11,h.y+10,'#ff4d6d',16,5);
+      }
+    }
+  }
+
+  // slow passive regen when not recently hit
+  if(player.invuln<=0 && player.hp < player.maxHp && player.hp > 0){
+    player.hp = Math.min(player.maxHp, player.hp + 0.03);
+  }
+
   for(const p of particles){ p.x+=p.vx; p.y+=p.vy; p.vy+=0.15; p.life--; }
   particles = particles.filter(p=>p.life>0);
 
@@ -769,6 +799,24 @@ function draw(){
     ctx.fillStyle='#7c3aed';
     ctx.fillRect(-8,-8,16,3);
     ctx.restore();
+  }
+
+  if(level.hearts){
+    for(const h of level.hearts){
+      if(h.taken) continue;
+      ctx.save();
+      let bob = Math.sin(Date.now()/280+h.x)*4;
+      ctx.translate(h.x+11, h.y+10+bob);
+      ctx.fillStyle = '#ff4d6d';
+      ctx.beginPath();
+      ctx.moveTo(0,5);
+      ctx.bezierCurveTo(-11,-6,-11,2,0,10);
+      ctx.bezierCurveTo(11,2,11,-6,0,5);
+      ctx.fill();
+      ctx.shadowColor='#ff4d6d'; ctx.shadowBlur=8;
+      ctx.fill();
+      ctx.restore();
+    }
   }
 
   if(level.type==='normal'){
