@@ -161,9 +161,9 @@ function buildLevels(){
       spawn:{x:30,y:400}, goal:{x:770,y:190,w:50,h:40}
     },
     { type:'boss', bossType:'guardian', bossName:'Temple Guardian', bossHp:55, bossColor:'#ff4d4d',
-      platforms: [{x:0,y:460,w:900,h:40}],
+      platforms: [{x:0,y:460,w:900,h:40},{x:770,y:340,w:100,h:20}],
       scrolls: [{x:100,y:390,taken:false}],
-      spawn:{x:50,y:400}
+      spawn:{x:50,y:400}, goal:{x:795,y:300,w:50,h:40}
     },
     { type:'normal',
       platforms: [
@@ -196,7 +196,7 @@ function buildLevels(){
     { type:'boss', bossType:'assassin', bossName:'Shadow Assassin', bossHp:65, bossColor:'#7c3aed',
       platforms: [{x:0,y:460,w:900,h:40},{x:150,y:340,w:140,h:20},{x:610,y:340,w:140,h:20}],
       scrolls: [{x:840,y:390,taken:false}],
-      spawn:{x:50,y:400}
+      spawn:{x:50,y:400}, goal:{x:635,y:300,w:50,h:40}
     },
     { type:'normal',
       platforms: [
@@ -212,9 +212,9 @@ function buildLevels(){
       spawn:{x:30,y:400}, goal:{x:725,y:180,w:50,h:40}
     },
     { type:'boss', bossType:'golem', bossName:'Stone Golem', bossHp:90, bossColor:'#9ca3af',
-      platforms: [{x:0,y:460,w:900,h:40}],
+      platforms: [{x:0,y:460,w:900,h:40},{x:770,y:360,w:100,h:20}],
       scrolls: [{x:450,y:390,taken:false}],
-      spawn:{x:50,y:400}
+      spawn:{x:50,y:400}, goal:{x:795,y:320,w:50,h:40}
     },
     { type:'normal',
       platforms: [
@@ -246,7 +246,7 @@ function buildLevels(){
     { type:'boss', bossType:'phoenix', bossName:'Phoenix Sentinel', bossHp:85, bossColor:'#ff9d00',
       platforms: [{x:0,y:460,w:900,h:40},{x:100,y:340,w:120,h:20},{x:680,y:340,w:120,h:20},{x:390,y:260,w:120,h:20}],
       scrolls: [{x:430,y:225,taken:false}],
-      spawn:{x:50,y:400}
+      spawn:{x:50,y:400}, goal:{x:715,y:300,w:50,h:40}
     },
     { type:'normal',
       platforms: [
@@ -279,7 +279,7 @@ function buildLevels(){
     { type:'boss', bossType:'emperor', bossName:'Dragon Emperor', bossHp:140, bossColor:'#ef233c',
       platforms: [{x:0,y:460,w:900,h:40},{x:180,y:360,w:120,h:20},{x:600,y:360,w:120,h:20}],
       scrolls: [{x:420,y:400,taken:false}],
-      spawn:{x:50,y:400}
+      spawn:{x:50,y:400}, goal:{x:415,y:320,w:50,h:40}
     }
   ];
 }
@@ -460,12 +460,11 @@ function updateBoss(){
   }
 
   if(boss.hp<=0){
-    bossesDefeated++;
-    spawnParticles(boss.x+35,boss.y+40,boss.color,30,8);
-    gameState='levelclear';
-    let allScrolls = level.scrolls.every(s=>s.taken);
-    showOverlay('⚔️ '+boss.name+' Defeated!',
-      (allScrolls?'All scrolls collected! ':'')+'Bosses defeated: '+bossesDefeated+'/5', 'Continue');
+    if(!level.bossDefeated){
+      level.bossDefeated = true;
+      bossesDefeated++;
+      spawnParticles(boss.x+35,boss.y+40,boss.color,30,8);
+    }
   }
 }
 
@@ -594,6 +593,16 @@ function update(){
 
   if(level.type==='boss'){
     updateBoss();
+    if(level.bossDefeated && rectsOverlap(player, level.goal)){
+      gameState='levelclear';
+      let allScrolls = level.scrolls.every(s=>s.taken);
+      let isFinal = levelIdx === levels.length-1;
+      showOverlay(isFinal ? '🐉 TEMPLE RESTORED! 🐉' : ('⚔️ '+level.bossName+' Defeated!'),
+        isFinal ? ('You have defeated all five Guardians and reclaimed the Dragon Throne. Total scrolls collected: '+scrollsCollected)
+                : ((allScrolls?'All scrolls collected! ':'')+'Bosses defeated: '+bossesDefeated+'/5'),
+        isFinal ? 'Play Again' : 'Continue');
+      if(isFinal) gameState='won';
+    }
   } else if(rectsOverlap(player, level.goal)){
     gameState='levelclear';
     let allScrolls = level.scrolls.every(s=>s.taken);
@@ -702,6 +711,24 @@ function drawBoss(){
   ctx.fillText(boss.name+' — Phase '+boss.phase, W/2, 16);
 }
 
+function drawGoal(g){
+  const pulse = 0.55 + Math.sin(Date.now()/220)*0.25;
+  ctx.save();
+  let grad = ctx.createRadialGradient(g.x+g.w/2,g.y+g.h/2,4,g.x+g.w/2,g.y+g.h/2,g.w);
+  grad.addColorStop(0, `rgba(6,182,212,${pulse})`);
+  grad.addColorStop(1, 'rgba(124,58,237,0)');
+  ctx.fillStyle = grad;
+  ctx.beginPath(); ctx.arc(g.x+g.w/2,g.y+g.h/2,g.w*0.9,0,7); ctx.fill();
+  ctx.strokeStyle = `rgba(165,243,252,${pulse+0.2})`;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(g.x,g.y,g.w,g.h);
+  ctx.fillStyle = '#e0f2fe';
+  ctx.font = '11px Outfit';
+  ctx.textAlign = 'center';
+  ctx.fillText('JUMP', g.x+g.w/2, g.y-8);
+  ctx.restore();
+}
+
 function draw(){
   ctx.clearRect(0,0,W,H);
   ctx.save();
@@ -733,25 +760,11 @@ function draw(){
   }
 
   if(level.type==='normal'){
-    const g = level.goal;
-    const pulse = 0.55 + Math.sin(Date.now()/220)*0.25;
-    ctx.save();
-    let grad = ctx.createRadialGradient(g.x+g.w/2,g.y+g.h/2,4,g.x+g.w/2,g.y+g.h/2,g.w);
-    grad.addColorStop(0, `rgba(6,182,212,${pulse})`);
-    grad.addColorStop(1, 'rgba(124,58,237,0)');
-    ctx.fillStyle = grad;
-    ctx.beginPath(); ctx.arc(g.x+g.w/2,g.y+g.h/2,g.w*0.9,0,7); ctx.fill();
-    ctx.strokeStyle = `rgba(165,243,252,${pulse+0.2})`;
-    ctx.lineWidth = 3;
-    ctx.strokeRect(g.x,g.y,g.w,g.h);
-    ctx.fillStyle = '#e0f2fe';
-    ctx.font = '11px Outfit';
-    ctx.textAlign = 'center';
-    ctx.fillText('JUMP', g.x+g.w/2, g.y-8);
-    ctx.restore();
+    drawGoal(level.goal);
     for(const e of level.enemies) drawEnemy(e);
   } else {
     drawBoss();
+    if(level.bossDefeated) drawGoal(level.goal);
   }
 
   drawPlayer();
