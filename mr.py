@@ -711,21 +711,34 @@ function drawBoss(){
   ctx.fillText(boss.name+' — Phase '+boss.phase, W/2, 16);
 }
 
-function drawGoal(g){
-  const pulse = 0.55 + Math.sin(Date.now()/220)*0.25;
+function drawGoal(g, active){
   ctx.save();
-  let grad = ctx.createRadialGradient(g.x+g.w/2,g.y+g.h/2,4,g.x+g.w/2,g.y+g.h/2,g.w);
-  grad.addColorStop(0, `rgba(6,182,212,${pulse})`);
-  grad.addColorStop(1, 'rgba(124,58,237,0)');
-  ctx.fillStyle = grad;
-  ctx.beginPath(); ctx.arc(g.x+g.w/2,g.y+g.h/2,g.w*0.9,0,7); ctx.fill();
-  ctx.strokeStyle = `rgba(165,243,252,${pulse+0.2})`;
-  ctx.lineWidth = 3;
-  ctx.strokeRect(g.x,g.y,g.w,g.h);
-  ctx.fillStyle = '#e0f2fe';
-  ctx.font = '11px Outfit';
-  ctx.textAlign = 'center';
-  ctx.fillText('JUMP', g.x+g.w/2, g.y-8);
+  if(active){
+    const pulse = 0.55 + Math.sin(Date.now()/220)*0.25;
+    let grad = ctx.createRadialGradient(g.x+g.w/2,g.y+g.h/2,4,g.x+g.w/2,g.y+g.h/2,g.w);
+    grad.addColorStop(0, `rgba(6,182,212,${pulse})`);
+    grad.addColorStop(1, 'rgba(124,58,237,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.arc(g.x+g.w/2,g.y+g.h/2,g.w*0.9,0,7); ctx.fill();
+    ctx.strokeStyle = `rgba(165,243,252,${pulse+0.2})`;
+    ctx.lineWidth = 3;
+    ctx.strokeRect(g.x,g.y,g.w,g.h);
+    ctx.fillStyle = '#e0f2fe';
+    ctx.font = '11px Outfit';
+    ctx.textAlign = 'center';
+    ctx.fillText('JUMP', g.x+g.w/2, g.y-8);
+  } else {
+    // locked / inactive portal outline
+    ctx.strokeStyle = 'rgba(150,150,170,0.35)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4,4]);
+    ctx.strokeRect(g.x,g.y,g.w,g.h);
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(200,200,220,0.5)';
+    ctx.font = '10px Outfit';
+    ctx.textAlign = 'center';
+    ctx.fillText('LOCKED', g.x+g.w/2, g.y-8);
+  }
   ctx.restore();
 }
 
@@ -760,11 +773,11 @@ function draw(){
   }
 
   if(level.type==='normal'){
-    drawGoal(level.goal);
+    drawGoal(level.goal, true);
     for(const e of level.enemies) drawEnemy(e);
   } else {
+    drawGoal(level.goal, level.bossDefeated);
     drawBoss();
-    if(level.bossDefeated) drawGoal(level.goal);
   }
 
   drawPlayer();
