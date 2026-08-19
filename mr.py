@@ -95,7 +95,8 @@ GAME_HTML = r"""
        and defeat all <b>five Guardians</b> standing between you and the Dragon Throne.</p>
     <div id="controls">
       <b>← → / A D</b> Move &nbsp;•&nbsp; <b>SPACE / W</b> Jump (double-jump!) &nbsp;•&nbsp; <b>J</b> Sword Slash<br>
-      <b>K</b> Fire Breath (uses Chi) &nbsp;•&nbsp; <b>SHIFT</b> Dash (brief invulnerability)
+      <b>K</b> Fire Breath (uses Chi) &nbsp;•&nbsp; <b>SHIFT</b> Dash (brief invulnerability)<br>
+      <b>L</b> Hold to raise Shield (fully blocks damage while up, can't attack while shielding)
     </div>
     <button class="gbtn" id="startBtn">Begin Journey</button>
   </div>
@@ -117,6 +118,8 @@ document.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
 function rectsOverlap(a,b){
   return a.x < b.x+b.w && a.x+a.w > b.x && a.y < b.y+b.h && a.y+a.h > b.y;
 }
+
+function shieldFactor(){ return player.shielding ? 0 : 1; }
 
 // ---------- Level Data ----------
 // type: 'normal' or 'boss'
@@ -309,7 +312,7 @@ const player = {
   x:30,y:400,w:34,h:44,vx:0,vy:0,
   onGround:false, facing:1, hp:100, maxHp:100, chi:100, maxChi:100,
   jumps:0, maxJumps:2, dashCd:0, slashCd:0, breathCd:0,
-  slashTimer:0, invuln:0, breathTimer:0
+  slashTimer:0, invuln:0, breathTimer:0, shielding:false
 };
 
 let particles = [];
@@ -463,7 +466,7 @@ function updateBoss(){
 
   // contact damage
   if(rectsOverlap(player,bx) && player.invuln<=0){
-    player.hp -= (boss.type==='golem'?9: boss.type==='emperor'?9:7);
+    player.hp -= (boss.type==='golem'?9: boss.type==='emperor'?9:7) * shieldFactor();
     player.invuln = 45; camShake = 10;
     spawnParticles(player.x+player.w/2,player.y+player.h/2,'#ff4d6d',8,4);
   }
@@ -485,27 +488,28 @@ function update(){
   if(gameState !== 'playing') return;
 
   let speed = 4.2;
+  player.shielding = !!keys['l'];
   if(keys['a']||keys['arrowleft']){ player.vx = -speed; player.facing=-1; }
   else if(keys['d']||keys['arrowright']){ player.vx = speed; player.facing=1; }
   else { player.vx *= 0.75; }
 
-  if((keys[' ']||keys['w']||keys['arrowup']) && player.jumps < player.maxJumps && !player._jumpHeld){
+  if((keys[' ']||keys['w']||keys['arrowup']) && player.jumps < player.maxJumps && !player._jumpHeld && !player.shielding){
     player.vy = -12.5; player.jumps++; player._jumpHeld = true;
     spawnParticles(player.x+player.w/2, player.y+player.h, '#a78bfa', 6, 3);
   }
   if(!(keys[' ']||keys['w']||keys['arrowup'])) player._jumpHeld = false;
 
-  if(keys['shift'] && player.dashCd<=0){
+  if(keys['shift'] && player.dashCd<=0 && !player.shielding){
     player.vx = 14*player.facing; player.dashCd = 45; player.invuln = 12;
     spawnParticles(player.x+player.w/2, player.y+player.h/2, '#06b6d4', 10, 5);
   }
   if(player.dashCd>0) player.dashCd--;
 
-  if(keys['j'] && player.slashCd<=0){ player.slashCd = 22; player.slashTimer = 10; }
+  if(keys['j'] && player.slashCd<=0 && !player.shielding){ player.slashCd = 22; player.slashTimer = 10; }
   if(player.slashCd>0) player.slashCd--;
   if(player.slashTimer>0) player.slashTimer--;
 
-  if(keys['k'] && player.breathCd<=0 && player.chi>=18){
+  if(keys['k'] && player.breathCd<=0 && player.chi>=18 && !player.shielding){
     player.breathCd = 8; player.chi -= 1.2; player.breathTimer = 14;
     fireballs.push({x:player.x+player.w/2+player.facing*20, y:player.y+18, vx:player.facing*9+player.vx*0.3, vy:(Math.random()-0.5)*1.5, life:40});
   }
@@ -544,7 +548,7 @@ function update(){
         e.x += e.vx;
         if(e.x<e.range[0]||e.x+e.w>e.range[1]) e.vx*=-1;
         if(Math.abs((e.x+e.w/2)-(player.x+player.w/2))<40 && Math.abs(e.y-player.y)<50 && player.invuln<=0 && Math.random()<0.03){
-          player.hp -= 6; player.invuln=40; camShake=8;
+          player.hp -= 6 * shieldFactor(); player.invuln=40; camShake=8;
           spawnParticles(player.x+player.w/2,player.y+player.h/2,'#ff4d6d',8,4);
         }
       } else if(e.type==='archer'){
@@ -562,7 +566,7 @@ function update(){
         spawnParticles(e.x+e.w/2,e.y+e.h/2,'#ff9d00',6,4);
       }
       if(rectsOverlap(player,e) && player.invuln<=0){
-        player.hp -= 8; player.invuln=45; camShake=8;
+        player.hp -= 8 * shieldFactor(); player.invuln=45; camShake=8;
       }
     }
   }
@@ -588,7 +592,7 @@ function update(){
     pr.y += pr.vy || 0;
     pr.life--;
     if(rectsOverlap({x:pr.x-4,y:pr.y-4,w:8,h:8}, player) && player.invuln<=0){
-      player.hp -= (pr.fire?6:7); player.invuln=40; pr.life=0; camShake=8;
+      player.hp -= (pr.fire?6:7) * shieldFactor(); player.invuln=40; pr.life=0; camShake=8;
     }
   }
   projectiles = projectiles.filter(p=>p.life>0);
@@ -697,6 +701,16 @@ function drawPlayer(){
     ctx.arc(player.w, player.h/2, 26, -0.8, 0.8);
     ctx.stroke();
     ctx.globalAlpha=1;
+  }
+  if(player.shielding){
+    let pulse = 0.5 + Math.sin(Date.now()/90)*0.2;
+    ctx.strokeStyle = `rgba(6,182,212,${0.7+pulse*0.3})`;
+    ctx.fillStyle = `rgba(6,182,212,${0.15+pulse*0.1})`;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(player.w/2+6, player.h/2, player.h*0.62, -Math.PI*0.65, Math.PI*0.65);
+    ctx.fill();
+    ctx.stroke();
   }
   ctx.restore();
 }
