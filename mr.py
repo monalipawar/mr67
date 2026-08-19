@@ -125,14 +125,14 @@ function buildLevels(){
     { type:'normal',
       platforms: [
         {x:0,y:460,w:900,h:40}, {x:150,y:370,w:120,h:20}, {x:340,y:300,w:120,h:20},
-        {x:540,y:250,w:120,h:20}, {x:700,y:380,w:150,h:20}, {x:60,y:250,w:100,h:20}
+        {x:540,y:250,w:120,h:20}, {x:700,y:380,w:150,h:20}
       ],
       enemies: [
         {x:400,y:270,w:34,h:40,vx:1.4,range:[340,460],hp:2,type:'shadow'},
         {x:750,y:350,w:34,h:40,vx:1.2,range:[700,840],hp:2,type:'shadow'}
       ],
-      scrolls: [{x:190,y:335,taken:false},{x:600,y:215,taken:false},{x:90,y:215,taken:false}],
-      spawn:{x:30,y:400}, goalX: 860
+      scrolls: [{x:190,y:335,taken:false},{x:600,y:215,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:775,y:330,w:50,h:44}
     },
     { type:'normal',
       platforms: [
@@ -145,8 +145,20 @@ function buildLevels(){
         {x:620,y:310,w:34,h:40,vx:1.6,range:[600,700],hp:2,type:'shadow'},
         {x:230,y:190,w:34,h:40,vx:1.3,range:[200,320],hp:3,type:'archer'}
       ],
-      scrolls: [{x:250,y:185,taken:false},{x:540,y:125,taken:false},{x:800,y:365,taken:false},{x:460,y:245,taken:false}],
-      spawn:{x:30,y:400}, goalX: 860
+      scrolls: [{x:250,y:185,taken:false},{x:540,y:125,taken:false},{x:460,y:245,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:790,y:350,w:50,h:50}
+    },
+    { type:'normal',
+      platforms: [
+        {x:0,y:460,w:900,h:40}, {x:130,y:390,w:90,h:20}, {x:280,y:420,w:90,h:20},
+        {x:430,y:350,w:90,h:20}, {x:580,y:290,w:90,h:20}, {x:720,y:230,w:120,h:20}
+      ],
+      enemies: [
+        {x:300,y:390,w:34,h:40,vx:1.5,range:[280,370],hp:2,type:'shadow'},
+        {x:600,y:260,w:34,h:40,vx:1.4,range:[580,670],hp:3,type:'archer'}
+      ],
+      scrolls: [{x:160,y:355,taken:false},{x:450,y:315,taken:false},{x:750,y:195,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:770,y:190,w:50,h:40}
     },
     { type:'boss', bossType:'guardian', bossName:'Temple Guardian', bossHp:55, bossColor:'#ff4d4d',
       platforms: [{x:0,y:460,w:900,h:40}],
@@ -164,8 +176,22 @@ function buildLevels(){
         {x:420,y:200,w:34,h:40,vx:1.4,range:[400,520],hp:3,type:'archer'},
         {x:720,y:230,w:34,h:40,vx:1.5,range:[700,790],hp:2,type:'shadow'}
       ],
-      scrolls: [{x:130,y:365,taken:false},{x:440,y:165,taken:false},{x:730,y:225,taken:false}],
-      spawn:{x:30,y:400}, goalX: 860
+      scrolls: [{x:130,y:365,taken:false},{x:440,y:165,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:725,y:220,w:50,h:40}
+    },
+    { type:'normal',
+      platforms: [
+        {x:0,y:460,w:900,h:40}, {x:110,y:410,w:80,h:20}, {x:230,y:360,w:80,h:20},
+        {x:350,y:410,w:80,h:20}, {x:480,y:330,w:80,h:20}, {x:610,y:260,w:80,h:20},
+        {x:750,y:200,w:120,h:20}
+      ],
+      enemies: [
+        {x:250,y:330,w:34,h:40,vx:1.6,range:[230,300],hp:2,type:'shadow'},
+        {x:500,y:300,w:34,h:40,vx:1.3,range:[480,550],hp:3,type:'archer'},
+        {x:630,y:230,w:34,h:40,vx:1.7,range:[610,680],hp:3,type:'shadow'}
+      ],
+      scrolls: [{x:140,y:375,taken:false},{x:640,y:225,taken:false},{x:780,y:165,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:800,y:160,w:50,h:40}
     },
     { type:'boss', bossType:'assassin', bossName:'Shadow Assassin', bossHp:65, bossColor:'#7c3aed',
       platforms: [{x:0,y:460,w:900,h:40},{x:150,y:340,w:140,h:20},{x:610,y:340,w:140,h:20}],
@@ -182,11 +208,11 @@ function buildLevels(){
         {x:560,y:240,w:34,h:40,vx:1.5,range:[540,640],hp:3,type:'shadow'},
         {x:100,y:200,w:34,h:40,vx:1.3,range:[80,180],hp:3,type:'archer'}
       ],
-      scrolls: [{x:210,y:355,taken:false},{x:730,y:185,taken:false},{x:110,y:195,taken:false}],
-      spawn:{x:30,y:400}, goalX: 860
+      scrolls: [{x:210,y:355,taken:false},{x:110,y:195,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:725,y:180,w:50,h:40}
     },
     { type:'boss', bossType:'golem', bossName:'Stone Golem', bossHp:90, bossColor:'#9ca3af',
-      platforms: [{x:0,y:460,w:900,h:40},{x:0,y:460,w:900,h:40}],
+      platforms: [{x:0,y:460,w:900,h:40}],
       scrolls: [{x:450,y:390,taken:false}],
       spawn:{x:50,y:400}
     },
@@ -202,8 +228,20 @@ function buildLevels(){
         {x:560,y:200,w:34,h:40,vx:1.9,range:[540,620],hp:3,type:'shadow'},
         {x:700,y:140,w:34,h:40,vx:1.4,range:[680,760],hp:4,type:'archer'}
       ],
-      scrolls: [{x:150,y:375,taken:false},{x:570,y:195,taken:false},{x:710,y:135,taken:false},{x:800,y:365,taken:false}],
-      spawn:{x:30,y:400}, goalX: 860
+      scrolls: [{x:150,y:375,taken:false},{x:570,y:195,taken:false},{x:710,y:135,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:700,y:130,w:50,h:40}
+    },
+    { type:'normal',
+      platforms: [
+        {x:0,y:460,w:900,h:40}, {x:140,y:410,w:90,h:20}, {x:300,y:350,w:90,h:20},
+        {x:460,y:400,w:90,h:20}, {x:610,y:330,w:90,h:20}, {x:760,y:260,w:120,h:20}
+      ],
+      enemies: [
+        {x:320,y:320,w:34,h:40,vx:1.7,range:[300,390],hp:3,type:'shadow'},
+        {x:630,y:300,w:34,h:40,vx:1.5,range:[610,700],hp:3,type:'archer'}
+      ],
+      scrolls: [{x:170,y:375,taken:false},{x:490,y:365,taken:false},{x:800,y:225,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:790,y:220,w:50,h:40}
     },
     { type:'boss', bossType:'phoenix', bossName:'Phoenix Sentinel', bossHp:85, bossColor:'#ff9d00',
       platforms: [{x:0,y:460,w:900,h:40},{x:100,y:340,w:120,h:20},{x:680,y:340,w:120,h:20},{x:390,y:260,w:120,h:20}],
@@ -222,8 +260,21 @@ function buildLevels(){
         {x:280,y:170,w:34,h:40,vx:1.5,range:[250,350],hp:4,type:'archer'},
         {x:580,y:130,w:34,h:40,vx:1.5,range:[550,670],hp:4,type:'archer'}
       ],
-      scrolls: [{x:170,y:365,taken:false},{x:300,y:165,taken:false},{x:600,y:125,taken:false},{x:800,y:365,taken:false},{x:480,y:245,taken:false}],
-      spawn:{x:30,y:400}, goalX: 860
+      scrolls: [{x:170,y:365,taken:false},{x:300,y:165,taken:false},{x:600,y:125,taken:false},{x:480,y:245,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:580,y:120,w:50,h:40}
+    },
+    { type:'normal',
+      platforms: [
+        {x:0,y:460,w:900,h:40}, {x:150,y:400,w:90,h:20}, {x:320,y:340,w:90,h:20},
+        {x:490,y:280,w:90,h:20}, {x:650,y:220,w:90,h:20}, {x:790,y:160,w:100,h:20}
+      ],
+      enemies: [
+        {x:340,y:310,w:34,h:40,vx:2.0,range:[320,410],hp:4,type:'shadow'},
+        {x:510,y:250,w:34,h:40,vx:1.6,range:[490,580],hp:4,type:'archer'},
+        {x:670,y:190,w:34,h:40,vx:1.9,range:[650,740],hp:4,type:'shadow'}
+      ],
+      scrolls: [{x:180,y:365,taken:false},{x:670,y:185,taken:false},{x:820,y:125,taken:false}],
+      spawn:{x:30,y:400}, goal:{x:810,y:120,w:50,h:40}
     },
     { type:'boss', bossType:'emperor', bossName:'Dragon Emperor', bossHp:140, bossColor:'#ef233c',
       platforms: [{x:0,y:460,w:900,h:40},{x:180,y:360,w:120,h:20},{x:600,y:360,w:120,h:20}],
@@ -543,7 +594,7 @@ function update(){
 
   if(level.type==='boss'){
     updateBoss();
-  } else if(player.x > level.goalX){
+  } else if(rectsOverlap(player, level.goal)){
     gameState='levelclear';
     let allScrolls = level.scrolls.every(s=>s.taken);
     showOverlay('Level Complete!', allScrolls? 'All scrolls collected! Bonus chi restored.' : 'Gate reached. Some scrolls remain hidden in the shadows.', 'Continue');
@@ -682,8 +733,22 @@ function draw(){
   }
 
   if(level.type==='normal'){
-    ctx.fillStyle='rgba(6,182,212,0.35)';
-    ctx.fillRect(level.goalX,0,4,H);
+    const g = level.goal;
+    const pulse = 0.55 + Math.sin(Date.now()/220)*0.25;
+    ctx.save();
+    let grad = ctx.createRadialGradient(g.x+g.w/2,g.y+g.h/2,4,g.x+g.w/2,g.y+g.h/2,g.w);
+    grad.addColorStop(0, `rgba(6,182,212,${pulse})`);
+    grad.addColorStop(1, 'rgba(124,58,237,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.arc(g.x+g.w/2,g.y+g.h/2,g.w*0.9,0,7); ctx.fill();
+    ctx.strokeStyle = `rgba(165,243,252,${pulse+0.2})`;
+    ctx.lineWidth = 3;
+    ctx.strokeRect(g.x,g.y,g.w,g.h);
+    ctx.fillStyle = '#e0f2fe';
+    ctx.font = '11px Outfit';
+    ctx.textAlign = 'center';
+    ctx.fillText('JUMP', g.x+g.w/2, g.y-8);
+    ctx.restore();
     for(const e of level.enemies) drawEnemy(e);
   } else {
     drawBoss();
